@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import Item from './Item';
+import allTags from './allTags';
 
 class Items extends React.Component {
     state = {
         items: [],
         item: {
             description: '',
+            tags: []
         },
-        id: 0
+        id: 0,
+        isShowing: false
     }
     
 
@@ -50,8 +53,15 @@ class Items extends React.Component {
         });
     }
 
+    toggleTagsSelect = () => {
+        // should show the tootip for the tags
+        this.setState({
+            isShowing: !this.state.isShowing
+        })
+    }
     render() {
         const { items } = this.state;
+        console.log(allTags);
         return (
             <div>
                 <span>My ToDo List</span>
@@ -74,6 +84,7 @@ class Items extends React.Component {
                             onChange={this.handleChange}
                         />
                     </label>
+                    <button className="button--add-tag" onClick={this.toggleTagsSelect}>Add Tag</button>
                     <button type="submit" className="button--add">Add</button>
                 </form>
             </div>
