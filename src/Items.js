@@ -130,7 +130,7 @@ class Items extends React.Component {
                             onChange={this.handleChange}
                         />
                     </label>
-                    <span id="button--add-tag" onClick={this.toggleTagsSelect}>Add Tag</span>
+                    <button id="button--add-tag" onClick={this.toggleTagsSelect}>Add Tag</button>
                     <button type="submit" id="button--add">Add</button>
                     {isShowing ? <SelectTags item={this.state.item} tagUpdate={this.handleItemTagUpdate} /> : ''}
                 </form>
