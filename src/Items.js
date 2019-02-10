@@ -124,15 +124,15 @@ class Items extends React.Component {
                         <input 
                             type="text"
                             value={this.state.item.description}
-                            placeholder="Add an Item to your list!"
+                            placeholder="Add an Item!"
                             name="description"
                             id="description"
                             onChange={this.handleChange}
                         />
                     </label>
-                    <button id="button--add-tag" onClick={this.toggleTagsSelect}>Add Tag</button>
-                    <button type="submit" id="button--add">Add</button>
-                    {isShowing ? <SelectTags item={this.state.item} tagUpdate={this.handleItemTagUpdate} /> : ''}
+                    <button type="button" id="button--add-tag" onClick={this.toggleTagsSelect}>Tag{isShowing ? <SelectTags item={this.state.item} tagUpdate={this.handleItemTagUpdate} /> : ''}</button>
+                    <button type="submit" id="button--add"><span role="img" aria-label="list-img">📝</span>Add</button>
+                    {/* {isShowing ? <SelectTags item={this.state.item} tagUpdate={this.handleItemTagUpdate} /> : ''} */}
                 </form>
                 <ul>
                     {items.map(item => (

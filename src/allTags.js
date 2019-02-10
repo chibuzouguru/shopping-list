@@ -19,6 +19,7 @@ const SelectTags = (props) => (
                     value={tag.name}
                     id={tag.name}
                     onChange={props.tagUpdate}
+                    className="tags"
                 />
                 {tag.name}
             </label>
