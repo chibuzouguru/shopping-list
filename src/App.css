@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  height: 100vh;
+  background: linear-gradient(#53a0fd, #3023ae);
+  overflow-y: scroll;
 }
 
 /* .App-logo {
@@ -29,4 +32,19 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.button--add-tag {
+  border: 2px solid black;
+}
+
+/* style the add item input */
+#description { 
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+/* list item styling */
+li {
+  list-style: none;
 }

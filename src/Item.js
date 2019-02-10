@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Tag from './tag';
 
 class Item extends Component {
     constructor(props) {
@@ -17,11 +18,18 @@ class Item extends Component {
 
     render() {
         const { item } = this.props;
+        console.log(item)
         return (
             <li className="single-item">
-                <input type="checkbox" name="isChecked" onChange={this.handleCheck} checked={this.state.isChecked}/>
+                <input 
+                    type="checkbox"
+                    name="isChecked"
+                    onChange={this.handleCheck}
+                    checked={this.state.isChecked}
+                />
                 {item.description}
-                <button className="button--remove" onClick={() => this.props.removeItem(item)}>Remove</button>
+                {item.tags.map(tag => <Tag tag={tag} key={tag} />)}
+                <button id="button--remove" onClick={() => this.props.removeItem(item)}>Remove</button>
             </li>
         );
     }

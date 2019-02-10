@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Item from './Item';
-import allTags from './allTags';
+import SelectTags from './allTags';
 
 class Items extends React.Component {
     state = {
         items: [],
         item: {
-            description: '',
-            tags: []
+            description: ''
         },
+        tags: [],
         id: 0,
         isShowing: false
     }
@@ -21,25 +21,6 @@ class Items extends React.Component {
             item: {
                 description: value
             }
-        });
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        
-        // check if the value is empty or not
-        if(!this.state.item.description) return;
-
-        // get the items and description from the state 
-        const { items, item } = this.state
-
-        // update the state with the new item and clear the description
-        this.setState({
-            items: [...items, {description: item.description, id: this.state.id} ],
-            item: {
-                description: ""
-            },
-            id: this.state.id + 1
         });
     }
 
@@ -57,37 +38,113 @@ class Items extends React.Component {
         // should show the tootip for the tags
         this.setState({
             isShowing: !this.state.isShowing
-        })
+        });
     }
-    render() {
-        const { items } = this.state;
-        console.log(allTags);
-        return (
-            <div>
-                <span>My ToDo List</span>
 
+    handleItemTagUpdate = (event) => {
+        let isChecked = event.target.checked
+        let value = event.target.value;
+
+        // check if the item is checked
+        if(isChecked) {
+            // if it is, add the value to the tags array
+            this.setState({
+                tags: [...this.state.tags, value]
+            }); 
+        } else {
+             // if it is unchecked, remove it from the array
+             this.setState({
+                tags: [...this.state.tags].filter(tag => tag !== value)
+            });
+        }
+    }
+
+    handleItemCheck = (event) => {
+        console.log(event.target.checked);
+        this.setState({
+            isChecked: !this.state.isChecked
+        });
+    }
+
+    deleteAllItems = () => {
+        this.checkItems();
+
+        this.setState({
+            items: [],
+            id: 0,
+            tags: []
+        });
+    }
+
+    checkItems = () => {
+        if(!this.state.items.length) {
+            console.log("No items in arrat")
+            return;
+        };
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+
+        // check if the value is empty or not
+        if(!this.state.item.description) return;
+
+        // hide the add tags component
+        if(this.state.isShowing) {
+            this.toggleTagsSelect();
+        }
+
+        // get the items and description from the state 
+        const { items, item } = this.state
+
+        // update the state with the new item and clear the description
+        this.setState({
+            items: [...items, {description: item.description, tags: [...this.state.tags], id: this.state.id} ],
+            item: {
+                description: ""
+            },
+            tags: [],
+            id: this.state.id + 1
+        });
+    }
+
+    render() {
+        const { items, isShowing } = this.state;
+        return (
+            <section>
                 {/* Display the items here by looping through the items array in state */}
-                <ul>
-                    {items.map(item => (
-                        <Item item={item} removeItem={this.handleRemove} key={item.id} />
-                    ))}
-                </ul>
-                <form className="form" onSubmit={this.handleSubmit}>
+                <nav>
+                    <button onClick={this.deleteAllItems} id="button--delete">
+                        <span role="img" aria-label="trashcan">🗑️</span>
+                        Delete All
+                    </button>
+                </nav>
+                <form className="form" onSubmit={this.handleSubmit} id="form">
                     <label htmlFor="description">
-                        Item:
                         <input 
                             type="text"
                             value={this.state.item.description}
-                            placeholder="Item"
+                            placeholder="Add an Item to your list!"
                             name="description"
                             id="description"
                             onChange={this.handleChange}
                         />
                     </label>
-                    <button className="button--add-tag" onClick={this.toggleTagsSelect}>Add Tag</button>
-                    <button type="submit" className="button--add">Add</button>
+                    <span id="button--add-tag" onClick={this.toggleTagsSelect}>Add Tag</span>
+                    <button type="submit" id="button--add">Add</button>
+                    {isShowing ? <SelectTags item={this.state.item} tagUpdate={this.handleItemTagUpdate} /> : ''}
                 </form>
-            </div>
+                <ul>
+                    {items.map(item => (
+                        <Item 
+                            item={item}
+                            removeItem={this.handleRemove}
+                            key={item.id}
+                            handleItemCheck={this.handleItemCheck}
+                        />
+                    ))}
+                </ul>
+            </section>
         );
     }
 }
