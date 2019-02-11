@@ -119,8 +119,8 @@ class Items extends React.Component {
                     </button>
                 </nav>
                 <section id="form-section">
-                    <form className="form" onSubmit={this.handleSubmit} id="form">
-                        <label htmlFor="description">
+                    <form className="form" onSubmit={this.handleSubmit} id="form" autoComplete="off">
+                        {/* <label htmlFor="description"> */}
                             <input 
                                 type="text"
                                 value={this.state.item.description}
@@ -129,7 +129,7 @@ class Items extends React.Component {
                                 id="description"
                                 onChange={this.handleChange}
                             />
-                        </label>
+                        {/* </label> */}
                         <div className="tag-and-tooltip">
                             <button type="button" id="button--add-tag" onClick={this.toggleTagsSelect}><span role="img" aria-label="image">🏷️</span></button>
                             {isShowing ? <SelectTags item={this.state.item} tagUpdate={this.handleItemTagUpdate} /> : ''}
