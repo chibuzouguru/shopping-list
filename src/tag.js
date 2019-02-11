@@ -1,9 +1,9 @@
 import React from 'react';
 
 const Tag = (props) => (
-    <em className="item--tag" id={props.tag}>
+    <span className="item--tag" id={`tagname-${props.tag}`}>
         {props.tag}
-    </em>
+    </span>
 );
 
 export default Tag;

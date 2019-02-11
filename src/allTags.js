@@ -1,28 +1,28 @@
 import React from 'react';
 
 const ALL_TAGS = [
-    { name: "home" },
-    { name: "travel" },
-    { name: "pet" },
-    { name: "groceries" },
-    { name: "school" },
-    { name: "work" },
-    { name: "family" }
+    { name: "Personal" },
+    { name: "Work" },
+    { name: "Travel" },
+    { name: "Family" },
+    { name: "Fun" }
 ]
+
 
 const SelectTags = (props) => (
     <div className="dropdown--tags">
         {ALL_TAGS.map(tag => (
-            <label key={tag.name} htmlFor={tag.name} >
+            <div className="checkbox" key={tag.name}>
                 <input
                     type="checkbox"
                     value={tag.name}
-                    id={tag.name}
                     onChange={props.tagUpdate}
-                    className="tags"
-                />
-                {tag.name}
-            </label>
+                    id={tag.name}
+                /> 
+                <label htmlFor={tag.name} className="tags">
+                    {tag.name}
+                </label>
+            </div> 
         ))}
     </div>
 );

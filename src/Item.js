@@ -21,15 +21,22 @@ class Item extends Component {
         console.log(item)
         return (
             <li className="single-item">
-                <input 
-                    type="checkbox"
-                    name="isChecked"
-                    onChange={this.handleCheck}
-                    checked={this.state.isChecked}
-                />
-                {item.description}
-                {item.tags.map(tag => <Tag tag={tag} key={tag} />)}
-                <button id="button--remove" onClick={() => this.props.removeItem(item)}>Remove</button>
+                <div className="item-checkbox">
+                    <input
+                        type="checkbox"
+                        name="isChecked"
+                        onChange={this.handleCheck}
+                        checked={this.state.isChecked}
+                        id={`item-${item.id}`}
+                    />
+                    <label htmlFor={`item-${item.id}`}>
+                        {item.description}
+                    </label>
+                </div>
+                <button id="button--remove" onClick={() => this.props.removeItem(item)}>&times;</button>
+                <div className="item-tags">
+                    {item.tags.map(tag => <Tag tag={tag} key={tag} />)}
+                </div>
             </li>
         );
     }

@@ -13,7 +13,6 @@ class Items extends React.Component {
         isShowing: false
     }
     
-
     handleChange = (event) => {
         let value = event.target.value;
 
@@ -40,7 +39,7 @@ class Items extends React.Component {
             isShowing: !this.state.isShowing
         });
     }
-
+   
     handleItemTagUpdate = (event) => {
         let isChecked = event.target.checked
         let value = event.target.value;
@@ -57,10 +56,10 @@ class Items extends React.Component {
                 tags: [...this.state.tags].filter(tag => tag !== value)
             });
         }
+
     }
 
     handleItemCheck = (event) => {
-        console.log(event.target.checked);
         this.setState({
             isChecked: !this.state.isChecked
         });
@@ -119,21 +118,25 @@ class Items extends React.Component {
                         Delete All
                     </button>
                 </nav>
-                <form className="form" onSubmit={this.handleSubmit} id="form">
-                    <label htmlFor="description">
-                        <input 
-                            type="text"
-                            value={this.state.item.description}
-                            placeholder="Add an Item!"
-                            name="description"
-                            id="description"
-                            onChange={this.handleChange}
-                        />
-                    </label>
-                    <button type="button" id="button--add-tag" onClick={this.toggleTagsSelect}>Tag{isShowing ? <SelectTags item={this.state.item} tagUpdate={this.handleItemTagUpdate} /> : ''}</button>
-                    <button type="submit" id="button--add"><span role="img" aria-label="list-img">📝</span>Add</button>
-                    {/* {isShowing ? <SelectTags item={this.state.item} tagUpdate={this.handleItemTagUpdate} /> : ''} */}
-                </form>
+                <section id="form-section">
+                    <form className="form" onSubmit={this.handleSubmit} id="form">
+                        <label htmlFor="description">
+                            <input 
+                                type="text"
+                                value={this.state.item.description}
+                                placeholder="Add an Item!"
+                                name="description"
+                                id="description"
+                                onChange={this.handleChange}
+                            />
+                        </label>
+                        <div className="tag-and-tooltip">
+                            <button type="button" id="button--add-tag" onClick={this.toggleTagsSelect}><span role="img" aria-label="image">🏷️</span></button>
+                            {isShowing ? <SelectTags item={this.state.item} tagUpdate={this.handleItemTagUpdate} /> : ''}
+                        </div>
+                        <button type="submit" id="button--add">Save</button>
+                    </form>
+                </section>
                 <ul>
                     {items.map(item => (
                         <Item 
